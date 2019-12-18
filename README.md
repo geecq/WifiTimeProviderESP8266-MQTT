@@ -7,11 +7,11 @@ Also, I replaced my nixie clock board ESP8266 with a Wemos D1 mini. This code wa
 
 Since the original WifiTimeProviderESP8266 code is essentially untouched, the webserver user interface is still operational and, in some cases, preferrable over the MQTT pub/sub system. So why add MQTT capability?
 
-    1.  Under MQTT, it is not necessary to know the nixie clock's IP address to access its user interface. The Wemos is subscribed to a specific topic and listens for its call sign - in this case "Nixie Clock".
+1.  Under MQTT, it is not necessary to know the nixie clock's IP address to access its user interface. The Wemos is subscribed to a specific topic and listens for its call sign - in this case "Nixie Clock".
     
-    2.  A web browser is not necessary and, therefore, simplifies programmatic access to the user interface. For example, PIR/RCWL motion sensors can be easily set up with different microntrollers away from the nixie clock to trigger action without having to go through the webserver's security. The MQTT broker will, of course, have its own security protocol. This easy extensibility can be used by other sensors/interfaces to control the nixie clock (buttons, remotes, etc).
+2.  A web browser is not necessary and, therefore, simplifies programmatic access to the user interface. For example, PIR/RCWL motion sensors can be easily set up with different microntrollers away from the nixie clock to trigger action without having to go through the webserver's security. The MQTT broker will, of course, have its own security protocol. This easy extensibility can be used by other sensors/interfaces to control the nixie clock (buttons, remotes, etc).
     
-    3.  Lastly, the nixie clock can be part of your existing MQTT system. 
+3.  Lastly, the nixie clock can be part of your existing MQTT system. 
     
 The advantage of using the webserver interface over MQTT is a nicely formatted big picture info at a glance about the nixie clock system. 
 
