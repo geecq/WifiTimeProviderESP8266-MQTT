@@ -240,9 +240,8 @@ void ReceivedMessage(char* topic, byte* payload, unsigned int length) {
           break;
       }
       msg = F("**** Nixie Clock ****\n");
-      msg += F("00:00:00:00:00:00\n");      /** <---- MAC address, added info not really necessary **/
       msg += wifiIP;
-      msg += F("\nCommands: [Mode {0-4}|[Red=|Blue=|Green=|{0-15}]|Status]");
+      msg += F("\nCommands: [Mode {0-4} [On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status]");
       msg += F("\nClock Mode ");
       msg += displayMode;
       if (clockIsOn) {
