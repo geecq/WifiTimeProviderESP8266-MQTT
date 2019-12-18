@@ -21,6 +21,6 @@ The nixie clock's current IP address (among other things) can be easilty obtaine
 
 All "Command" phrases must begin with "Nixie Clock ". There is a single space before and after the command "Mode" and a single space after the mode number if either "On=" or "Off=" follows. Do not add spaces before or after "=" sign. 
 
-Valid "Command" vocabulary: Mode {0-4}[On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status
+Valid "Command" vocabulary: Mode {0-4} [On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status
 
 Changes to WifiTimeProviderESP8266 are marked with START MQTT and ends with END MQTT. 
