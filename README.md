@@ -3,7 +3,7 @@ A fork of the open source WifiTimeProviderESP8266 from nixieclock.biz to provide
 
 WifiTimeProviderESP8266 is code used by nixie clock board kits sold by nixieclock.biz. This fork adds MQTT capability to the board, enabling it to publish/subscribe to an MQTT system using the PubSubClient library for Arduino. All changes were made using code *additions* only -- no modifications were made to actual original code lines. Previous changes made to WifiTimeProviderESP8266 not involving MQTT are included here and are discussed more fully in the nixie clock support forum: https://www.tubeclockdb.com/forum/12-arduino-nixie-clock-kit-support-forum/7690-ntp-based-wifi-time-for-v1-clocks
 
-Also, I replaced my nixie clock board ESP8266 with a Wemos D1 mini. This code was compiled and tested with Arduino 1.8.10 and all relevant libraries, updated as of 17 December 2019. It also compiles and runs in an ESP8266 but has not been tested.
+Also, I replaced my nixie clock board ESP8266 with a Wemos D1 mini. This code was compiled and tested with Arduino 1.8.10 and all relevant libraries updated as of 17 December 2019. It also compiles and runs in an ESP8266 but has not been tested.
 
 Since the original WifiTimeProviderESP8266 code is essentially untouched, the webserver user interface is still operational and, in some cases, preferrable over the MQTT pub/sub system. So why add MQTT capability?
 
