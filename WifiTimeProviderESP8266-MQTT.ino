@@ -54,10 +54,11 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
 #include <Wire.h>
-#include <PubSubClient.h>         /** <----  MQTT Make sure to add PubSubClient lib  **/        
-#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager  (0.15.0)    <--- new version
-#include <ArduinoJson.h>          // https://github.com/bblanchon/ArduinoJson (6.13.0) <--- new version
-#include <ezTime.h>               // https://github.com/ropg/ezTime (0.8.3)            <--- new version
+#include <PubSubClient.h>         /** <----  MQTT START END **** Make sure to add PubSubClient lib  ****/        
+
+#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager  (0.14.0)
+#include <ArduinoJson.h>          // https://github.com/bblanchon/ArduinoJson (5.13.2)
+#include <ezTime.h>               // https://github.com/ropg/ezTime (0.7.9)
 
 // Other parts of the code, broken out for clarity
 #include "I2CDefs.h"
@@ -83,11 +84,11 @@ const char* update_path = "/update";
 const char* update_username = "admin";
 const char* update_password = "update";
 
-// time stuff
+// time stuff *** my location defaults -- change as necessary 
 #define DEFAULT_TIME_SERVER_URL_1 "http://time-zone-server.scapp.io/getTime/America/Los_Angeles"
 #define DEFAULT_TIME_SERVER_URL_2 "http://its.internet-box.ch/getTime/America/Los_Angeles"
 
-#define DEFAULT_NTP_TZ "PST8PDT,M3.2.0,M11.1.0"   //POSIX format Pacific Standard with daylight time
+#define DEFAULT_NTP_TZ "PST8PDT,M3.2.0,M11.1.0"   // POSIX format Pacific Standard with daylight time
 #define DEFAULT_NTP_INTERVAL 7207                 // seconds, best if not a multiple of 60
 #define DEFAULT_NTP_SERVER "0.pool.ntp.org"
 #define MIN_NTP_INTERVAL 601                      // seconds
@@ -107,15 +108,12 @@ const char *ap_password = AP_PSK;
 const char* web_username = WEB_USERNAME;
 const char* web_password = WEB_PASSWORD;
 
-/****** START MQTT defines addition to original code  ******/
+/**** START MQTT defines ****/
 const char* mqtt_server = "YOUR MQTT SERVER";       /** <---- Replace with your MQTT server IP/NAME **/
 const char* mqtt_username = "MQTT USER NAME";       /** <---- Replace with your MQTT server USER NAME **/
 const char* mqtt_password = "MQTT PASSWORD";        /** <---- Replace with your MQTT server PASSWORD **/
-const char* clientID = "Nixie-Clock";               /** <---- Any random name will do **/
-String wifiIP, displayMode;
-WiFiClient wifiClient;
-PubSubClient client(mqtt_server, 1883, wifiClient);
-/****** END MQTT defines addition to original code  *******/
+const char* clientID = "Nixie Clock";               /** <---- Any random name will do **/
+/**** END MQTT defines ****/
 
 boolean blueLedState = true;
 // used for flashing the blue LED
@@ -173,8 +171,13 @@ i2cProtocols i2cProtocol ;
 
 ESP8266WebServer server(80);
 Timezone myTz;
-
 WiFiManager wifiManager;
+
+/**** START MQTT ****/
+String wifiIP, displayMode;
+WiFiClient wifiClient;
+PubSubClient client(mqtt_server, 1883, wifiClient);
+/**** END MQTT ****/
 
 //gets called when WiFiManager enters configuration mode
 void configModeCallback (WiFiManager *myWiFiManager) {
@@ -253,6 +256,9 @@ void ReceivedMessage(char* topic, byte* payload, unsigned int length) {
         msg += F("\n  Blue Channel = ");
         msg += String(configBlueCnl).c_str();
       }
+      String currTime = myTz.dateTime();
+      msg += F("\nClock Time: ");
+      msg += currTime.c_str();
       mqtt_Publish("Information", msg.c_str());
       msg = "";
     }
