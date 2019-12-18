@@ -16,3 +16,5 @@ Since the original WifiTimeProviderESP8266 code is essentially untouched, the we
 The advantage of using the webserver interface over MQTT is a nicely formatted big picture info at a glance about the nixie clock system. 
 
 WifiTimeProviderESP8266-MQTT implemented here only covers Clock Modes 0 (Never Blank) to 4 (Blank during selected hours everyday). Where applicable, specifying start and end hours for blanking can be specified. Extending MQTT's application to all the remaining clock modes should be trivial. RGB led settings are also covered in this implementation. All other interface tweaks are specialty items, set infrequently so that using the webserver interface makes more sense. The nixie clock's current IP address (among other things) can be easilty obtained by requesting (publishing) "Nixie Clock Status" on the MQTT system. 
+
+Changes to WifiTimeProviderESP8266 are marked with START MQTT and ends with END MQTT. 
