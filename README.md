@@ -15,6 +15,12 @@ Since the original WifiTimeProviderESP8266 code is essentially untouched, the we
     
 The advantage of using the webserver interface over MQTT is a nicely formatted big picture info at a glance about the nixie clock system. 
 
-WifiTimeProviderESP8266-MQTT implemented here only covers Clock Modes 0 (Never Blank) to 4 (Blank during selected hours everyday). Where applicable, specifying start and end hours for blanking can be specified. Extending MQTT's application to all the remaining clock modes should be trivial. RGB led settings are also covered in this implementation. All other interface tweaks are specialty items, set infrequently so that using the webserver interface makes more sense. The nixie clock's current IP address (among other things) can be easilty obtained by requesting (publishing) "Nixie Clock Status" on the MQTT system. 
+WifiTimeProviderESP8266-MQTT implemented here only covers Clock Modes 0 (Never Blank) to 4 (Blank during selected hours everyday). Where applicable, specifying start and end hours for blanking can be specified. Extending MQTT's application to all the remaining clock modes should be trivial. RGB led settings are also covered in this implementation. All other interface tweaks are specialty items, set infrequently so that using the webserver interface makes more sense. 
+
+The nixie clock's current IP address (among other things) can be easilty obtained by publishing in the "Command" topic the phrase "Nixie Clock Status" through the MQTT system. The Wemos would then reply by publishing in the "Information" topic a set of telemetry items. For another example, the start hour of blanking can be changed by publishing "Nixie Clock Mode 4 Off=0" in the "Command" topic. This will blank the tubes (and LEDs, as the case may be) everyday at midnight. End hour of blanking, if not specifically set, will default to the previous setting. Simply publishing "Nixie Clock Mode 4" will blank the display at midnight and turn the display back on at 08:00 everyday. In both cases, the Wemos will respond by publishing the relevant changes on the "Information" topic. The MQTT in this code implements only those two topics: "Command" and "Information". 
+
+All "Command" phrases must begin with "Nixie Clock ". There is a single space before and after the command "Mode" and a single space after the mode number if either "On=" or "Off=" follows. Do not add spaces before or after "=" sign. 
+
+Valid "Command" vocabulary: Mode {0-4}[On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status
 
 Changes to WifiTimeProviderESP8266 are marked with START MQTT and ends with END MQTT. 
