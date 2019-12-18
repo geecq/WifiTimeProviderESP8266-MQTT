@@ -25,4 +25,4 @@ All "Command" phrases must begin with "Nixie Clock ". Note that there is a singl
 
 Valid "Command" vocabulary: Mode {0-4} [On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status
 
-Changes to WifiTimeProviderESP8266 are marked with START MQTT and ends with END MQTT. 
+Changes to WifiTimeProviderESP8266 are bound by /**** START MQTT ****/ and /**** END MQTT ****/. 
