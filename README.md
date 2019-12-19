@@ -26,7 +26,7 @@ Since the original WifiTimeProviderESP8266 code is essentially untouched, the we
 
 1.  Under MQTT, it is not necessary to know the nixie clock's IP address to access its user interface. The Wemos is subscribed to a specific topic and listens for its call sign - in this case "Nixie Clock".
     
-2.  A web browser is not necessary which greatly simplifies programmatic access to the user interface. For example, PIR/RCWL motion sensors can be set up easily using different microntrollers away from the nixie clock to trigger some action without having to make complex changes to the original WifiTimeProviderESP8266 code. The webserver's access security protocol is bypassed completely. The MQTT broker will, of course, have its own security protocol. This easy extensibility can be used by other sensors/interfaces to control the nixie clock (buttons, remotes, etc).
+2.  A web browser is not necessary which greatly simplifies programmatic access to the user interface. For example, PIR/RCWL motion sensors can be set up easily using different microntrollers away from the nixie clock to trigger some action without having to make complex changes to the original WifiTimeProviderESP8266 code. The webserver's access authentication protocol is bypassed completely. The MQTT broker will, of course, have its own security protocol. This easy extensibility can be used by other sensors/interfaces to control the nixie clock (buttons, remotes, etc).
     
 3.  Lastly, the nixie clock can become an upstanding member of your existing MQTT system. 
     
