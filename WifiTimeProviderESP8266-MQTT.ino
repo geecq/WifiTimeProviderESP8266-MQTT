@@ -84,11 +84,11 @@ const char* update_path = "/update";
 const char* update_username = "admin";
 const char* update_password = "update";
 
-// time stuff *** my location defaults -- change as necessary 
+// time stuff
 #define DEFAULT_TIME_SERVER_URL_1 "http://time-zone-server.scapp.io/getTime/America/Los_Angeles"
 #define DEFAULT_TIME_SERVER_URL_2 "http://its.internet-box.ch/getTime/America/Los_Angeles"
 
-#define DEFAULT_NTP_TZ "PST8PDT,M3.2.0,M11.1.0"   // POSIX format Pacific Standard with daylight time
+#define DEFAULT_NTP_TZ "PST8PDT,M3.2.0,M11.1.0"   //POSIX format Pacific Standard with daylight time
 #define DEFAULT_NTP_INTERVAL 7207                 // seconds, best if not a multiple of 60
 #define DEFAULT_NTP_SERVER "0.pool.ntp.org"
 #define MIN_NTP_INTERVAL 601                      // seconds
@@ -169,15 +169,14 @@ timeSources timeSource ; // 0=none, 1=ntp, 2=timeserver
 enum i2cProtocols {unKnown, v2v62, v1v54};
 i2cProtocols i2cProtocol ;
 
-ESP8266WebServer server(80);
-Timezone myTz;
-WiFiManager wifiManager;
-
 /**** START MQTT ****/
-String wifiIP, displayMode;
 WiFiClient wifiClient;
 PubSubClient client(mqtt_server, 1883, wifiClient);
 /**** END MQTT ****/
+
+ESP8266WebServer server(80);
+Timezone myTz;
+WiFiManager wifiManager;
 
 //gets called when WiFiManager enters configuration mode
 void configModeCallback (WiFiManager *myWiFiManager) {
@@ -197,6 +196,7 @@ bool Connect() {
 
 void ReceivedMessage(char* topic, byte* payload, unsigned int length) {
   String msg = (char*) payload;
+  String displayMode;
   msg = msg.substring(0, length);
   if (msg.indexOf("Nixie Clock") != -1)  {      /** <---- "Nixie Clock" used as string identifier  **/
     getClockOptionsFromI2C();
@@ -204,6 +204,8 @@ void ReceivedMessage(char* topic, byte* payload, unsigned int length) {
     byte currHour = myTz.dateTime(TIME_NOW, "G").toInt();
     byte numDayOfWeek = myTz.dateTime(TIME_NOW, "N").toInt();
     if (msg.indexOf("Status") != -1) {          /** <---- 'Status' report requested, see readme file  **/
+      String macAddr = WiFi.macAddress();
+      String wifiIP = WiFi.localIP().toString();
       switch (configDayBlanking) {
         case 0:
           clockIsOn = true;
@@ -243,6 +245,9 @@ void ReceivedMessage(char* topic, byte* payload, unsigned int length) {
           break;
       }
       msg = F("**** Nixie Clock ****\n");
+      msg += F("MAC: ");
+      msg += macAddr;
+      msg += F("\nIP: ");
       msg += wifiIP;
       msg += F("\nCommands: [Mode {0-4} [On=|Off=|{0-23}]|[Red=|Blue=|Green=|{0-15}]|Status]");
       msg += F("\nClock Mode ");
@@ -480,7 +485,7 @@ void setup()
   debugMsg("IP address: " + formatIPAsString(myIP));
 
 //  Wire.begin(0, 2); // SDA = 0, SCL = 2       /** <---- uncomment this line if using ESP8266 - not MQTT mod **/
-  Wire.begin(D2, D1); // SDA = 0, SCL = 2       /** <---- comment this line if not using Wemos D1 mini **/
+  Wire.begin(D2, D1); // SDA = 0, SCL = 2       /** <---- comment this line if using Wemos D1 mini **/
   debugMsg("I2C master started");
 
   /* Set page handler functions */
@@ -546,7 +551,6 @@ void setup()
   debugMsg("HTTP server started");
 
 /******  START MQTT setup code addition  ******/
-  wifiIP = WiFi.localIP().toString();
   client.setCallback(ReceivedMessage);
   if (Connect()) {
     Serial.println("Connected Successfully to MQTT Broker!");
@@ -554,8 +558,8 @@ void setup()
   else {
     Serial.println("Connection Failed!");
   }
-}
 /******  END MQTT setup code addition  ******/
+}
 
 // ----------------------------------------------------------------------------------------------------
 // --------------------------------------------- Main Loop --------------------------------------------
