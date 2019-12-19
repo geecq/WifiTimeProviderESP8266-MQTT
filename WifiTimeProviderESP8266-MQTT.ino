@@ -56,9 +56,9 @@
 #include <Wire.h>
 #include <PubSubClient.h>         /** <----  MQTT START END **** Make sure to add PubSubClient lib  ****/        
 
-#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager  (0.14.0)
-#include <ArduinoJson.h>          // https://github.com/bblanchon/ArduinoJson (5.13.2)
-#include <ezTime.h>               // https://github.com/ropg/ezTime (0.7.9)
+#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager  (0.15.0)       <-- latest update
+#include <ArduinoJson.h>          // https://github.com/bblanchon/ArduinoJson (6.13.0)    <-- latest update
+#include <ezTime.h>               // https://github.com/ropg/ezTime (0.8.3)               <-- latest update
 
 // Other parts of the code, broken out for clarity
 #include "I2CDefs.h"
