@@ -13,9 +13,8 @@ WifiTimeProviderESP8266 is code used by nixie clock board kits sold by nixiecloc
 
 I replaced my board's original ESP8266 with a Wemos D1 mini. This required modification of the I2C initialization line:
 
-//  Wire.begin(0, 2);   // SDA = 0, SCL = 2   // <---- uncomment start of this line if using ESP8266 - not MQTT mod
-
-    Wire.begin(D2, D1);                       // <---- comment start of this line if not using Wemos D1 mini
+    //  Wire.begin(0, 2);    // SDA = 0, SCL = 2  <-- uncomment start of this line if using ESP8266 - not MQTT mod
+        Wire.begin(D2, D1);  // <---- comment start of this line if not using Wemos D1 mini
    
 This code was compiled and tested with Arduino 1.8.10 with all relevant libraries updated as of 17 December 2019. It compiles and runs in an ESP8266 but has not been tested.
 
