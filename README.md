@@ -11,14 +11,16 @@ must be changed to at least 384. PubSubClient uses this number as a constant buf
 
 # The Nixie Clock MQTT
 
-WifiTimeProviderESP8266 is code used by ESP8266 add-on to the nixie clock board kits sold by nixieclock.biz. This fork adds MQTT capability to the board, enabling it to publish/subscribe to an MQTT system using the PubSubClient library for Arduino. This is a non-destructive mod: all changes are made by simply adding new lines of code - other than that, no alterations or deletions were made to the original. I have a six digit All-In-One Rev3 model that came pre-installed with WifiTimeProviderESP8266 v1 protocol v356. However, after following this [NTP support](https://www.tubeclockdb.com/forum/12-arduino-nixie-clock-kit-support-forum/7690-ntp-based-wifi-time-for-v1-clocks) discussion in the nixie clock support forum, I decided to switch to WifiTimeProviderESP8266 v2 protocol v357mjs.9. This business of Rev/Vers/Protocol numbering is quite labyrinthine and very, very confusing, to say the least. Bottom line is that the WifiTimeProviderESP8266 code framework this MQTT mod is based on is non-standard. My suggestion is to simply take all MQTT additions, explained more fully below, and just graft them onto your working version of WifiTimeProviderESP8266 in the appropriate locations. There's a great chance that it will actually work. If not, simply take them out again.
+WifiTimeProviderESP8266 is code used by the ESP8266 add-on to the nixie clock board kits sold by nixieclock.biz. This fork adds MQTT capability to the board, enabling it to publish/subscribe to an MQTT system using the PubSubClient library for Arduino. This is a non-destructive mod: all changes are made by simply adding new lines of code - other than that, no alterations or deletions are made to the original. I have a six digit All-In-One Rev3 model that came pre-installed with WifiTimeProviderESP8266 v1 protocol v356. However, after following this [NTP support](https://www.tubeclockdb.com/forum/12-arduino-nixie-clock-kit-support-forum/7690-ntp-based-wifi-time-for-v1-clocks) discussion in the nixie clock support forum, I decided to switch to WifiTimeProviderESP8266 v2 protocol v357mjs.9. This business of Rev/Vers/Protocol numbering is quite labyrinthine and very, very confusing, to say the least. Bottom line is that the WifiTimeProviderESP8266 code framework this MQTT mod is based on is non-standard. My suggestion is to simply take all MQTT additions, explained more fully below, and just graft them onto your working version of WifiTimeProviderESP8266 in the appropriate locations. There's a great chance that it will actually work. If not, simply take them out again.
 
 Also, I replaced my board's original ESP8266 with a Wemos D1 mini. This required modification of the I2C initialization line:
 
     // Wire.begin(0, 2);    // SDA = 0, SCL = 2  <-- uncomment start of this line if using ESP8266
        Wire.begin(D2, D1);  // <-- comment start of this line if not using Wemos D1 mini
    
-This code was compiled and tested using Arduino IDE 1.8.10 with all relevant libraries updated as of 17 December 2019. It compiles and runs in an ESP8266 but has not been tested.
+This code was compiled and tested using Arduino IDE 1.8.10 with all relevant libraries updated as of 17 December 2019. It compiles and runs in an ESP8266 but has not been tested. 
+
+__Be sure to replace the MQTT credentials section with your actual setup.__ 
 
 Since the original WifiTimeProviderESP8266 code is essentially untouched, the webserver user interface is still operational and, in some cases, preferrable over the MQTT pub/sub system. So, why add MQTT capability?
 
