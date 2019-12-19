@@ -480,7 +480,7 @@ void setup()
   debugMsg("IP address: " + formatIPAsString(myIP));
 
 //  Wire.begin(0, 2); // SDA = 0, SCL = 2       /** <---- uncomment this line if using ESP8266 - not MQTT mod **/
-  Wire.begin(D2, D1); // SDA = 0, SCL = 2       /** <---- comment this line if using Wemos D1 mini **/
+  Wire.begin(D2, D1); // SDA = 0, SCL = 2       /** <---- comment this line if not using Wemos D1 mini **/
   debugMsg("I2C master started");
 
   /* Set page handler functions */
