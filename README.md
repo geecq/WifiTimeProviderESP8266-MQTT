@@ -36,7 +36,7 @@ The nixie clock's current IP address (among other things) can be easilty obtaine
 
     "Nixie Clock Status"
     
-The Wemos would then reply by publishing in the "Information" topic a set of telemetry items. For another example, the start hour of blanking can be changed by publishing 
+The Wemos would then reply by publishing in the "Information" topic a set of telemetry data (see pic above). For another example, the start hour of blanking can be changed by publishing 
 
     "Nixie Clock Mode 4 Off=0"
 
