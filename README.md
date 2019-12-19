@@ -1,7 +1,7 @@
 # WifiTimeProviderESP8266-MQTT
 A fork of the open source WifiTimeProviderESP8266 from nixieclock.biz to provide MQTT capability
 
-https://user-images.githubusercontent.com/10426316/71139162-3d0f3400-21c2-11ea-9c2f-b54d4ca77836.png
+![Fig. 1](https://user-images.githubusercontent.com/10426316/71139162-3d0f3400-21c2-11ea-9c2f-b54d4ca77836.png)
 
 IMPORTANT NOTE: WifiTimeProviderESP8266-MQTT assumes a familiarity with WifiTimeProviderESP8266 and what it does. Knowledge of MQTT is also assumed, in particular, the Mosquitto broker. I am running a Mosquitto broker on a Raspberry Pi Zerro W. PubSubClient library for Arduino is used for this implementation, but Line 26 of PubSubClient.h:
 
